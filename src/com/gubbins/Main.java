@@ -7,8 +7,9 @@ import com.xeiam.xchart.SwingWrapper;
 public class Main {
 
     public static void main(String[] args) {
-        double[] xData = new double[] { 0.0, 1.0, 2.0 };
-        double[] yData = new double[] { 2.0, 1.0, 0.0 };
+        DataReader dataReader = new DataReader();
+        double[] xData = dataReader.getX();
+        double[] yData = dataReader.getY();
 
         // Create Chart
         Chart chart = QuickChart.getChart("Sample Chart", "X", "Y", "y(x)", xData, yData);
