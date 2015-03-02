@@ -41,4 +41,9 @@ public class GubChart {
         }
     }
 
+    public void addSeries(String title,String seriesName, ArrayList<? extends Number> xData, ArrayList<? extends Number> yData) {
+        addSeries(seriesName, xData, yData);
+        chart.setChartTitle(title);
+    }
+
 }
