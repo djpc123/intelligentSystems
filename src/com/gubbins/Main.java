@@ -15,7 +15,6 @@ public class Main {
 
         Random r = new Random();
         for(int i=0; i<Integer.MAX_VALUE; i++) {
-            System.out.println(i);
             Function f = new Function(r.nextInt(), r.nextInt(), r.nextInt(), r.nextInt(), r.nextInt(), r.nextInt());
             gub.addSeries(f.toString(), "f(x)", xData, f.calculate(xData));
         }
