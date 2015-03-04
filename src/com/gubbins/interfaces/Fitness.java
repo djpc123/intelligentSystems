@@ -1,14 +1,20 @@
-package com.gubbins;
+package com.gubbins.interfaces;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * Created by Sam on 03/03/2015.
+ * Created by Sam on 04/03/2015.
  */
-public class Fitness {
+public interface Fitness {
 
-    public static double calculateFitness(ArrayList<Double> yData, ArrayList<Double> target) {
+    /**
+     * Calculates the fitness as the distance between the two lines.
+     * @param yData The arraylist of values calculated.
+     * @param target The arraylist of the target values.
+     * @return The fitness value.
+     */
+    public default double calculateFitness(ArrayList<Double> yData, ArrayList<Double> target) {
         Iterator<Double> yIt = yData.iterator();
         Iterator<Double> tarIt = target.iterator();
         double fitness = 0;

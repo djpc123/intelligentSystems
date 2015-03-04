@@ -8,15 +8,15 @@ import java.util.Iterator;
  */
 public class Function {
 
-    public int a;
-    public int b;
-    public int c;
-    public int d;
-    public int e;
-    public int f;
+    public double a;
+    public double b;
+    public double c;
+    public double d;
+    public double e;
+    public double f;
 
     //f(x)=a + bx + cx2 + dx3 + ex4 + fx5
-    public Function(int a, int b, int c, int d, int e, int f) {
+    public Function(double a, double b, double c, double d, double e, double f) {
         this.a=a;
         this.b=b;
         this.c=c;
@@ -71,7 +71,7 @@ public class Function {
     }
 
     public ArrayList<Double> calculate(ArrayList<Double> x) {
-        ArrayList<Double> result = new ArrayList<Double>();
+        ArrayList<Double> result = new ArrayList<>();
         Iterator<Double> it = x.iterator();
         while(it.hasNext()) {
             result.add(calculate(it.next()));
