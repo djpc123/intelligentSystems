@@ -1,6 +1,10 @@
 package com.gubbins;
 
-import com.gubbins.interfaces.*;
+import com.gubbins.crossover.Crossover;
+import com.gubbins.elitism.Elitism;
+import com.gubbins.fitness.Fitness;
+import com.gubbins.mutation.Mutator;
+import com.gubbins.tornament.Tournament;
 
 import java.util.ArrayList;
 import java.util.Random;
