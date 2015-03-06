@@ -5,12 +5,12 @@ import java.util.Iterator;
 
 public class Function {
 
-    public double a;
-    public double b;
-    public double c;
-    public double d;
-    public double e;
-    public double f;
+    private final double a;
+    private final double b;
+    private final double c;
+    private final double d;
+    private final double e;
+    private final double f;
 
     //f(x)=a + bx + cx2 + dx3 + ex4 + fx5
     public Function(double a, double b, double c, double d, double e, double f) {
@@ -74,6 +74,10 @@ public class Function {
             result.add(calculate(it.next()));
         }
         return result;
+    }
+
+    public double[] getGenome() {
+        return new double[] {a,b,c,d,e,f};
     }
 
 }
