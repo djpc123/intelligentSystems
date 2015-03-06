@@ -1,6 +1,7 @@
 package com.gubbins;
 
 import com.gubbins.crossover.Crossover;
+import com.gubbins.crossover.SingleSplitCrossover;
 import com.gubbins.elitism.Elitism;
 import com.gubbins.fitness.Fitness;
 import com.gubbins.mutation.Mutator;
@@ -22,11 +23,11 @@ public class GeneticAlgorithm {
 
     public GeneticAlgorithm() {
         randomFunction = new Random();
-        fitness = new Fitness() {};
+        fitness = new Fitness();
         mutator = new Mutator() {};
-        crossover = new Crossover() {};
-        tournament = new Tournament() {};
-        elitism = new Elitism() {};
+        crossover = new SingleSplitCrossover();
+        tournament = new Tournament();
+        elitism = new Elitism();
         initialPopulation = new ArrayList<>();
         currentPopulation = new ArrayList<>();
     }

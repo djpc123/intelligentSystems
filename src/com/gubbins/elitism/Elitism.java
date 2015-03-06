@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public interface Elitism {
+public class Elitism {
 
-    public default ArrayList<Function> selectElite(final Fitness fitness, final int numberOfElite, final ArrayList<Function> population) {
+    public ArrayList<Function> selectElite(final Fitness fitness, final int numberOfElite, final ArrayList<Function> population) {
         if(numberOfElite > population.size()) throw new IllegalArgumentException("Number of elite required can not be greater than given population size");
         final DataReader reader = new DataReader();
         ArrayList<Function> elite = new ArrayList<>(); //may be dangerous

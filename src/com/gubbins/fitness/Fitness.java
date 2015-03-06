@@ -3,7 +3,7 @@ package com.gubbins.fitness;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public interface Fitness {
+public class Fitness {
 
     /**
      * Calculates the fitness as the distance between the two lines.
@@ -11,7 +11,7 @@ public interface Fitness {
      * @param target The arraylist of the target values.
      * @return The fitness value.
      */
-    public default double calculateFitness(ArrayList<Double> yData, ArrayList<Double> target) {
+    public double calculateFitness(ArrayList<Double> yData, ArrayList<Double> target) {
         Iterator<Double> yIt = yData.iterator();
         Iterator<Double> tarIt = target.iterator();
         double fitness = 0;
