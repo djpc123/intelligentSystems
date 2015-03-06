@@ -9,9 +9,6 @@ import java.lang.String;
 import java.util.ArrayList;
 import java.util.Collection;
 
-/**
- * Created by Sam on 27/02/2015.
- */
 public class GubChart {
 
     private Chart chart;

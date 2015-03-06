@@ -3,9 +3,6 @@ package com.gubbins;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-/**
- * Created by Sam on 02/03/2015.
- */
 public class Function {
 
     public double a;

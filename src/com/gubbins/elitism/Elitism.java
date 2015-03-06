@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 
-/**
- * Created by Sam on 04/03/2015.
- */
 public interface Elitism {
 
     public default ArrayList<Function> selectElite(final Fitness fitness, final int numberOfElite, final ArrayList<Function> population) {

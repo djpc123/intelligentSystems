@@ -4,9 +4,6 @@ import com.gubbins.Function;
 
 import java.util.ArrayList;
 
-/**
- * Created by Sam on 03/03/2015.
- */
 public interface Tournament {
 
     public default Function runTournament(ArrayList<Function> population) {

@@ -3,9 +3,6 @@ package com.gubbins.fitness;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-/**
- * Created by Sam on 04/03/2015.
- */
 public interface Fitness {
 
     /**

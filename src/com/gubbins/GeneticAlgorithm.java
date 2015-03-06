@@ -9,9 +9,6 @@ import com.gubbins.tornament.Tournament;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- * Created by Sam on 04/03/2015.
- */
 public class GeneticAlgorithm {
 
     private Random randomFunction;
