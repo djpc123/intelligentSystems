@@ -12,20 +12,14 @@ public class SingleSplitCrossover implements Crossover {
     @Override
     public ArrayList<Function> crossover(Function f1, Function f2) {
         int splitPoint = getSplitPoint();
+        double[] child1 = f1.getGenome();
+        double[] child2 = f2.getGenome();
 
-        double[] child1 = new double[6];
-        double[] child2 = new double[6];
-        final double[] parent1 = f1.getGenome();
-        final double[] parent2 = f2.getGenome();
-
-        int i;
-        for (i = 0; i < splitPoint; i++) {
-            child1[i] = parent1[i];
-            child2[i] = parent2[i];
-        }
-        for (; i <= 6; i++) {
-            child1[i] = parent2[i];
-            child2[i] = parent1[i];
+        for (int i = splitPoint; i <= 6; i++) {
+            double parent1 = child1[i];
+            double parent2 = child2[i];
+            child1[i] = parent2;
+            child2[i] = parent1;
         }
 
         final ArrayList<Function> children = new ArrayList<>();
