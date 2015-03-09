@@ -15,7 +15,7 @@ public class SingleSplitCrossover implements Crossover {
         double[] child1 = f1.getGenome();
         double[] child2 = f2.getGenome();
 
-        for (int i = splitPoint; i <= 6; i++) {
+        for (int i = splitPoint; i < 6; i++) {
             double parent1 = child1[i];
             double parent2 = child2[i];
             child1[i] = parent2;
@@ -33,6 +33,6 @@ public class SingleSplitCrossover implements Crossover {
      * @return An integer between 1 and 5.
      */
     private int getSplitPoint() {
-        return (random.nextInt(5) + 1);
+        return (random.nextInt(4)+1);
     }
 }
