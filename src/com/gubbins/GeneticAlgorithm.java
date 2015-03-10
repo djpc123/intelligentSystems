@@ -3,7 +3,6 @@ package com.gubbins;
 import com.gubbins.crossover.Crossover;
 import com.gubbins.crossover.SingleSplitCrossover;
 import com.gubbins.elitism.Elitism;
-import com.gubbins.fitness.Fitness;
 import com.gubbins.mutation.Mutator;
 import com.gubbins.mutation.RandomMutator;
 import com.gubbins.tornament.Tournament;
@@ -21,23 +20,26 @@ public class GeneticAlgorithm {
     private ArrayList<Function> initialPopulation = new ArrayList<>();
     private ArrayList<Function> currentPopulation = new ArrayList<>();
     private GubChart chart;
+    private int populationSize = 10000;
+    private int eliteNumber = (populationSize/100)*10;
+    private int randomNumber = (populationSize/100)*5;
 
     public GeneticAlgorithm(GubChart gub) {
         chart = gub;
     }
 
     public void run() {
-        generateInitialPopulation(100);
+        generateInitialPopulation(populationSize*2);
 
         for(int j=0; j<1000000; j++) {
-            currentPopulation.addAll(Elitism.selectElite(5, initialPopulation));
+            currentPopulation.addAll(Elitism.selectElite(eliteNumber, initialPopulation));
             Function winner = tournament.runTournament(initialPopulation);
-            while (currentPopulation.size() < 45) {
+            while (currentPopulation.size() < populationSize - randomNumber) {
                 int chance = randomModify.nextInt(100) + 1;
-                if (chance <= 15) currentPopulation.add(mutator.mutate(winner));
+                if (chance <= 5) currentPopulation.add(mutator.mutate(winner));
                 else currentPopulation.addAll(crossover.crossover(winner, tournament.runTournament(initialPopulation)));
             }
-            for (int i = currentPopulation.size(); i < 50; i++) {
+            for (int i = currentPopulation.size(); i < populationSize; i++) {
                 currentPopulation.add(generateRandomFunction());
             }
 
