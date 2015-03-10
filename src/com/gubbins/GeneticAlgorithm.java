@@ -7,22 +7,24 @@ import com.gubbins.mutation.Mutator;
 import com.gubbins.mutation.RandomMutator;
 import com.gubbins.tornament.Tournament;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class GeneticAlgorithm {
 
+    private final ExecutorService executor = Executors.newFixedThreadPool(8);
     private Random randomFunction = new Random();
-    private Random randomModify = new Random();
     private Mutator mutator = new RandomMutator();
     private Crossover crossover = new SingleSplitCrossover();
     private Tournament tournament = new Tournament();
     private ArrayList<Function> initialPopulation = new ArrayList<>();
-    private ArrayList<Function> currentPopulation = new ArrayList<>();
     private GubChart chart;
     private int populationSize = 10000;
     private int eliteNumber = (populationSize/100)*10;
     private int randomNumber = (populationSize/100)*5;
+
 
     public GeneticAlgorithm(GubChart gub) {
         chart = gub;
@@ -32,14 +34,32 @@ public class GeneticAlgorithm {
         generateInitialPopulation(populationSize*2);
 
         for(int j=0; j<1000000; j++) {
+            List<Function> currentPopulation = Collections.synchronizedList(new ArrayList<>());
             currentPopulation.addAll(Elitism.selectElite(eliteNumber, initialPopulation));
 
-            while (currentPopulation.size() < populationSize - randomNumber) {
-                Function winner = tournament.runTournament(initialPopulation);
-                int chance = randomModify.nextInt(100) + 1;
-                if (chance <= 15) currentPopulation.add(mutator.mutate(winner));
-                else currentPopulation.addAll(crossover.crossover(winner, tournament.runTournament(initialPopulation)));
+            for (int i = currentPopulation.size(); i < (populationSize - randomNumber); i+=2) {
+                executor.execute(() -> {
+                    Function parent1 = tournament.runTournament(initialPopulation);
+                    Function parent2 = tournament.runTournament(initialPopulation);
+                    int crossoverChance = ThreadLocalRandom.current().nextInt(100) + 1;
+                    ArrayList<Function> children = new ArrayList<>();
+                    if (crossoverChance <= 50) {
+                        children.addAll(crossover.crossover(parent1, parent2));
+                    } else {
+                        children.add(parent1);
+                        children.add(parent2);
+                    }
+                    for (ListIterator<Function> iter = children.listIterator(); iter.hasNext();) {
+                        Function child = iter.next();
+                        int mutateChance = ThreadLocalRandom.current().nextInt(100) + 1;
+                        if (mutateChance <= 10) {
+                            iter.set(mutator.mutate(child));
+                        }
+                    }
+                    currentPopulation.addAll(children);
+                });
             }
+
             for (int i = currentPopulation.size(); i < populationSize; i++) {
                 currentPopulation.add(generateRandomFunction());
             }
@@ -65,7 +85,7 @@ public class GeneticAlgorithm {
     }
 
     private double generateVariable() {
-        return randomFunction.nextInt(1000) + randomFunction.nextDouble();
+        return randomFunction.nextInt(10000) * randomFunction.nextGaussian();
     }
 
     private void generateInitialPopulation(int populationSize) {
