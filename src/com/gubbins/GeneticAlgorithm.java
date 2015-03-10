@@ -34,7 +34,7 @@ public class GeneticAlgorithm {
             Function winner = tournament.runTournament(initialPopulation);
             while (currentPopulation.size() < 45) {
                 int chance = randomModify.nextInt(100) + 1;
-                if (chance <= 5) currentPopulation.add(mutator.mutate(winner));
+                if (chance <= 15) currentPopulation.add(mutator.mutate(winner));
                 else currentPopulation.addAll(crossover.crossover(winner, tournament.runTournament(initialPopulation)));
             }
             for (int i = currentPopulation.size(); i < 50; i++) {
@@ -53,12 +53,16 @@ public class GeneticAlgorithm {
     }
 
     private Function generateRandomFunction() {
-        return new Function(randomFunction.nextInt(100) + randomFunction.nextDouble(),
-                randomFunction.nextInt(100) + randomFunction.nextDouble(),
-                randomFunction.nextInt(100) + randomFunction.nextDouble(),
-                randomFunction.nextInt(100) + randomFunction.nextDouble(),
-                randomFunction.nextInt(100) + randomFunction.nextDouble(),
-                randomFunction.nextInt(100) + randomFunction.nextDouble());
+        return new Function(generateVariable(),
+                generateVariable(),
+                generateVariable(),
+                generateVariable(),
+                generateVariable(),
+                generateVariable());
+    }
+
+    private double generateVariable() {
+        return randomFunction.nextInt(1000) + randomFunction.nextDouble();
     }
 
     private void generateInitialPopulation(int populationSize) {

@@ -13,13 +13,9 @@ public class RandomMutator implements Mutator {
         double[] genome = f.getGenome();
 
         int mutationIndex = random.nextInt(genome.length);
-        int i = random.nextInt(2);
+        double change = random.nextGaussian();
 
-        if (i > 0) {
-            genome[mutationIndex] = genome[mutationIndex] * 1.1;
-        } else {
-            genome[mutationIndex] = genome[mutationIndex] * 0.9;
-        }
+        genome[mutationIndex] = genome[mutationIndex] * (1 + change);
 
         return new Function(genome[0],genome[1],genome[2],genome[3],genome[4],genome[5]);
 

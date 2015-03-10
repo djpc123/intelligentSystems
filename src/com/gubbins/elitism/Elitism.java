@@ -1,8 +1,6 @@
 package com.gubbins.elitism;
 
-import com.gubbins.DataReader;
 import com.gubbins.Function;
-import com.gubbins.fitness.Fitness;
 
 import java.util.ArrayList;
 import java.util.Comparator;
