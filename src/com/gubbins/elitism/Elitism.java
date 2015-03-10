@@ -10,17 +10,16 @@ import java.util.Iterator;
 
 public class Elitism {
 
-    public ArrayList<Function> selectElite(final Fitness fitness, final int numberOfElite, final ArrayList<Function> population) {
+    public ArrayList<Function> selectElite(final int numberOfElite, final ArrayList<Function> population) {
         if(numberOfElite > population.size()) throw new IllegalArgumentException("Number of elite required can not be greater than given population size");
-        final DataReader reader = new DataReader();
         ArrayList<Function> elite = new ArrayList<>(); //may be dangerous
 
         //Sort population with lowest fitness at start
         population.sort(new Comparator<Function>() {
             @Override
             public int compare(Function o1, Function o2) {
-                double f1 = fitness.calculateFitness(o1.calculate(reader.getX()), reader.getY());
-                double f2 = fitness.calculateFitness(o2.calculate(reader.getX()), reader.getY());
+                double f1 = o1.getFitness();
+                double f2 = o2.getFitness();
                 if (f1 < f2) return -1;
                 if (f1 > f2) return 1;
                 if (f1 == f2) return 0;

@@ -1,5 +1,7 @@
 package com.gubbins;
 
+import com.gubbins.fitness.Fitness;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -11,6 +13,7 @@ public class Function {
     private final double d;
     private final double e;
     private final double f;
+    private final double fitness;
 
     //f(x)=a + bx + cx2 + dx3 + ex4 + fx5
     public Function(double a, double b, double c, double d, double e, double f) {
@@ -20,6 +23,9 @@ public class Function {
         this.d=d;
         this.e=e;
         this.f=f;
+        Fitness fit = new Fitness();
+        DataReader reader = new DataReader();
+        fitness = fit.calculateFitness(calculate(reader.getX()), reader.getY());
     }
 
     @Override
@@ -79,5 +85,7 @@ public class Function {
     public double[] getGenome() {
         return new double[] {a,b,c,d,e,f};
     }
+
+    public double getFitness() {return fitness;}
 
 }

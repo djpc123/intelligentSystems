@@ -12,7 +12,7 @@ public class Main {
         GubChart gub = new GubChart("Title", "x", "f(x)");
         gub.addSeries("f(x)", xData, yData);
 
-        new GeneticAlgorithm().run();
+        new GeneticAlgorithm(gub).run();
     }
 
 }
