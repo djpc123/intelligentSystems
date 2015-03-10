@@ -10,7 +10,7 @@ import java.util.Iterator;
 
 public class Elitism {
 
-    public ArrayList<Function> selectElite(final int numberOfElite, final ArrayList<Function> population) {
+    public static ArrayList<Function> selectElite(final int numberOfElite, final ArrayList<Function> population) {
         if(numberOfElite > population.size()) throw new IllegalArgumentException("Number of elite required can not be greater than given population size");
         ArrayList<Function> elite = new ArrayList<>(); //may be dangerous
 

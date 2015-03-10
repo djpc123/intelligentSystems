@@ -7,10 +7,13 @@ import java.util.ArrayList;
 
 public class DataReader {
 
+    // Make this a singleton
+    private static DataReader instance = new DataReader();
+
     private ArrayList<Double> x = new ArrayList<>();
     private ArrayList<Double> y = new ArrayList<>();
 
-    public DataReader() {
+    private DataReader() {
         try (BufferedReader reader = new BufferedReader(new FileReader("data.csv"))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -27,12 +30,12 @@ public class DataReader {
         }
     }
 
-    public ArrayList<Double> getX() {
-        return x;
+    public static ArrayList<Double> getX() {
+        return instance.x;
     }
 
-    public ArrayList<Double> getY() {
-        return y;
+    public static ArrayList<Double> getY() {
+        return instance.y;
     }
 
 }

@@ -23,9 +23,7 @@ public class Function {
         this.d=d;
         this.e=e;
         this.f=f;
-        Fitness fit = new Fitness();
-        DataReader reader = new DataReader();
-        fitness = fit.calculateFitness(calculate(reader.getX()), reader.getY());
+        fitness = Fitness.calculateFitness(calculate(DataReader.getX()), DataReader.getY());
     }
 
     @Override

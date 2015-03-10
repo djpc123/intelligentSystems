@@ -13,27 +13,16 @@ import java.util.Random;
 
 public class GeneticAlgorithm {
 
-    private Random randomFunction;
-    private Random randomModify;
-    private Mutator mutator;
-    private Crossover crossover;
-    private Tournament tournament;
-    private Elitism elitism;
-    private ArrayList<Function> initialPopulation;
-    private ArrayList<Function> currentPopulation;
-    private DataReader reader;
+    private Random randomFunction = new Random();
+    private Random randomModify = new Random();
+    private Mutator mutator = new RandomMutator();
+    private Crossover crossover = new SingleSplitCrossover();
+    private Tournament tournament = new Tournament();
+    private ArrayList<Function> initialPopulation = new ArrayList<>();
+    private ArrayList<Function> currentPopulation = new ArrayList<>();
     private GubChart chart;
 
     public GeneticAlgorithm(GubChart gub) {
-        randomFunction = new Random();
-        randomModify = new Random();
-        mutator = new RandomMutator();
-        crossover = new SingleSplitCrossover();
-        tournament = new Tournament();
-        elitism = new Elitism();
-        initialPopulation = new ArrayList<>();
-        currentPopulation = new ArrayList<>();
-        reader = new DataReader();
         chart = gub;
     }
 
@@ -41,7 +30,7 @@ public class GeneticAlgorithm {
         generateInitialPopulation(100);
 
         for(int j=0; j<1000000; j++) {
-            currentPopulation.addAll(elitism.selectElite(5, initialPopulation));
+            currentPopulation.addAll(Elitism.selectElite(5, initialPopulation));
             Function winner = tournament.runTournament(initialPopulation);
             while (currentPopulation.size() < 45) {
                 int chance = randomModify.nextInt(100) + 1;
@@ -56,20 +45,20 @@ public class GeneticAlgorithm {
             initialPopulation.addAll(currentPopulation);
             currentPopulation.clear();
 
-            Function best = elitism.selectElite(1, initialPopulation).get(0);
+            Function best = Elitism.selectElite(1, initialPopulation).get(0);
             System.out.println(j + " " + best.getFitness());
-            chart.addSeries(best.toString(), "best",reader.getX(), best.calculate(reader.getX()));
+            chart.addSeries(best.toString(), "best",DataReader.getX(), best.calculate(DataReader.getX()));
         }
 
     }
 
     private Function generateRandomFunction() {
-        return new Function(randomFunction.nextInt(25) + randomFunction.nextDouble(),
-                randomFunction.nextInt(25) + randomFunction.nextDouble(),
-                randomFunction.nextInt(25) + randomFunction.nextDouble(),
-                randomFunction.nextInt(25) + randomFunction.nextDouble(),
-                randomFunction.nextInt(25) + randomFunction.nextDouble(),
-                randomFunction.nextInt(25) + randomFunction.nextDouble());
+        return new Function(randomFunction.nextInt(100) + randomFunction.nextDouble(),
+                randomFunction.nextInt(100) + randomFunction.nextDouble(),
+                randomFunction.nextInt(100) + randomFunction.nextDouble(),
+                randomFunction.nextInt(100) + randomFunction.nextDouble(),
+                randomFunction.nextInt(100) + randomFunction.nextDouble(),
+                randomFunction.nextInt(100) + randomFunction.nextDouble());
     }
 
     private void generateInitialPopulation(int populationSize) {

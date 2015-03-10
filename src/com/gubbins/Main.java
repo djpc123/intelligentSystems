@@ -5,9 +5,8 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        DataReader dataReader = new DataReader();
-        ArrayList<Double> xData = dataReader.getX();
-        ArrayList<Double> yData = dataReader.getY();
+        ArrayList<Double> xData = DataReader.getX();
+        ArrayList<Double> yData = DataReader.getY();
 
         GubChart gub = new GubChart("Title", "x", "f(x)");
         gub.addSeries("f(x)", xData, yData);

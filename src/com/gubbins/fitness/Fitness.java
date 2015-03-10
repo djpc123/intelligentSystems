@@ -11,7 +11,7 @@ public class Fitness {
      * @param target The arraylist of the target values.
      * @return The fitness value.
      */
-    public double calculateFitness(ArrayList<Double> yData, ArrayList<Double> target) {
+    public static double calculateFitness(ArrayList<Double> yData, ArrayList<Double> target) {
         Iterator<Double> yIt = yData.iterator();
         Iterator<Double> tarIt = target.iterator();
         double fitness = 0;
