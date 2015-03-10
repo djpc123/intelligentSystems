@@ -10,7 +10,7 @@ import java.util.Random;
 public class Tournament {
 
     private Random randomSelect = new Random();
-    private int tournamentSize = 5;
+    private int tournamentSize = 500;
 
     public Function runTournament(ArrayList<Function> population) {
         ArrayList<Function> tournament = new ArrayList<>();

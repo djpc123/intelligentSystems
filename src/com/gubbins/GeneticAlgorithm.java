@@ -33,10 +33,11 @@ public class GeneticAlgorithm {
 
         for(int j=0; j<1000000; j++) {
             currentPopulation.addAll(Elitism.selectElite(eliteNumber, initialPopulation));
-            Function winner = tournament.runTournament(initialPopulation);
+
             while (currentPopulation.size() < populationSize - randomNumber) {
+                Function winner = tournament.runTournament(initialPopulation);
                 int chance = randomModify.nextInt(100) + 1;
-                if (chance <= 5) currentPopulation.add(mutator.mutate(winner));
+                if (chance <= 15) currentPopulation.add(mutator.mutate(winner));
                 else currentPopulation.addAll(crossover.crossover(winner, tournament.runTournament(initialPopulation)));
             }
             for (int i = currentPopulation.size(); i < populationSize; i++) {
