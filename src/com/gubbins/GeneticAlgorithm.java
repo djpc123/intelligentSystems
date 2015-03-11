@@ -8,9 +8,7 @@ import com.gubbins.mutation.RandomMutator;
 import com.gubbins.tornament.Tournament;
 
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.*;
 
 public class GeneticAlgorithm {
 
@@ -22,7 +20,7 @@ public class GeneticAlgorithm {
     private ArrayList<Function> initialPopulation = new ArrayList<>();
     private GubChart chart;
     private int populationSize = 10000;
-    private int eliteNumber = (populationSize/100)*10;
+    private int eliteNumber = (populationSize/100)*5;
     private int randomNumber = (populationSize/100)*5;
 
 
@@ -35,29 +33,38 @@ public class GeneticAlgorithm {
 
         for(int j=0; j<1000000; j++) {
             List<Function> currentPopulation = Collections.synchronizedList(new ArrayList<>());
+            List<Future<?>> tasks = new ArrayList<>();
             currentPopulation.addAll(Elitism.selectElite(eliteNumber, initialPopulation));
 
             for (int i = currentPopulation.size(); i < (populationSize - randomNumber); i+=2) {
-                executor.execute(() -> {
+                tasks.add( executor.submit(() -> {
                     Function parent1 = tournament.runTournament(initialPopulation);
                     Function parent2 = tournament.runTournament(initialPopulation);
                     int crossoverChance = ThreadLocalRandom.current().nextInt(100) + 1;
                     ArrayList<Function> children = new ArrayList<>();
-                    if (crossoverChance <= 50) {
+                    if (crossoverChance <= 75) {
                         children.addAll(crossover.crossover(parent1, parent2));
                     } else {
                         children.add(parent1);
                         children.add(parent2);
                     }
-                    for (ListIterator<Function> iter = children.listIterator(); iter.hasNext();) {
+                    for (ListIterator<Function> iter = children.listIterator(); iter.hasNext(); ) {
                         Function child = iter.next();
                         int mutateChance = ThreadLocalRandom.current().nextInt(100) + 1;
-                        if (mutateChance <= 10) {
+                        if (mutateChance <= 15) {
                             iter.set(mutator.mutate(child));
                         }
                     }
                     currentPopulation.addAll(children);
-                });
+                }));
+            }
+
+            for (Future<?> task : tasks) {
+                try {
+                    task.get();
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
             }
 
             for (int i = currentPopulation.size(); i < populationSize; i++) {
@@ -85,7 +92,7 @@ public class GeneticAlgorithm {
     }
 
     private double generateVariable() {
-        return randomFunction.nextInt(10000) * randomFunction.nextGaussian();
+        return randomFunction.nextInt(100000) * randomFunction.nextGaussian();
     }
 
     private void generateInitialPopulation(int populationSize) {

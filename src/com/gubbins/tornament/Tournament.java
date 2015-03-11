@@ -10,12 +10,12 @@ import java.util.Random;
 public class Tournament {
 
     private Random randomSelect = new Random();
-    private int tournamentSize = 500;
+    private static int TOURNAMENT_SIZE = 100;
 
     public Function runTournament(ArrayList<Function> population) {
         ArrayList<Function> tournament = new ArrayList<>();
         ArrayList<Integer> indexs = new ArrayList<>();
-        while(indexs.size() < tournamentSize) {
+        while(indexs.size() < TOURNAMENT_SIZE) {
             int index = randomSelect.nextInt(population.size());
             if(!indexs.contains(index)) {
                 indexs.add(index);
