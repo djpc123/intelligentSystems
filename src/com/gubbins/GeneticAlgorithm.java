@@ -21,7 +21,7 @@ public class GeneticAlgorithm {
     private GubChart chart;
     private int populationSize = 50000;
     private int eliteNumber = (populationSize/100)*1;
-    private int randomNumber = (populationSize/100)*0;
+    private int randomNumber = (populationSize/100)*1;
 
 
     public GeneticAlgorithm(GubChart gub) {
@@ -35,7 +35,7 @@ public class GeneticAlgorithm {
         ArrayList<Double> averageFitness = new ArrayList<>();
         ArrayList<Integer> time = new ArrayList<>();
 
-        for(int j=0; j<100; j++) {
+        for(int j=0; j<1000; j++) {
             List<Function> currentPopulation = Collections.synchronizedList(new ArrayList<>());
             List<Future<?>> tasks = new ArrayList<>();
             currentPopulation.addAll(Elitism.selectElite(eliteNumber, initialPopulation));
