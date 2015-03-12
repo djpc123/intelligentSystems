@@ -19,8 +19,8 @@ public class GeneticAlgorithm {
     private Tournament tournament = new Tournament();
     private ArrayList<Function> initialPopulation = new ArrayList<>();
     private GubChart chart;
-    private int populationSize = 50000;
-    private int eliteNumber = (populationSize/100)*1;
+    private int populationSize = 10000;
+    private int eliteNumber = (populationSize/100)*5;
     private int randomNumber = (populationSize/100)*1;
 
 
@@ -35,7 +35,7 @@ public class GeneticAlgorithm {
         ArrayList<Double> averageFitness = new ArrayList<>();
         ArrayList<Integer> time = new ArrayList<>();
 
-        for(int j=0; j<1000; j++) {
+        for(int j=0; j<500; j++) {
             List<Function> currentPopulation = Collections.synchronizedList(new ArrayList<>());
             List<Future<?>> tasks = new ArrayList<>();
             currentPopulation.addAll(Elitism.selectElite(eliteNumber, initialPopulation));
@@ -46,7 +46,7 @@ public class GeneticAlgorithm {
                     Function parent2 = tournament.runTournament(initialPopulation);
                     int crossoverChance = ThreadLocalRandom.current().nextInt(100) + 1;
                     ArrayList<Function> children = new ArrayList<>();
-                    if (crossoverChance <= 75) {
+                    if (crossoverChance <= 80) {
                         children.addAll(crossover.crossover(parent1, parent2));
                     } else {
                         children.add(parent1);
@@ -55,7 +55,7 @@ public class GeneticAlgorithm {
                     for (ListIterator<Function> iter = children.listIterator(); iter.hasNext(); ) {
                         Function child = iter.next();
                         int mutateChance = ThreadLocalRandom.current().nextInt(100) + 1;
-                        if (mutateChance <= 15) {
+                        if (mutateChance <= 10) {
                             iter.set(mutator.mutate(child));
                         }
                     }

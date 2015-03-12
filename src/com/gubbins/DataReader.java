@@ -23,7 +23,7 @@ public class DataReader {
                     y.add(Double.parseDouble(split[1]));
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             try (BufferedReader reader = new BufferedReader(new FileReader("data.csv"))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
