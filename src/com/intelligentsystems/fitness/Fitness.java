@@ -1,4 +1,4 @@
-package com.gubbins.fitness;
+package com.intelligentsystems.fitness;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,7 +20,7 @@ public class Fitness {
             double yDouble = yIt.next();
             fitness += Math.pow(targetDouble-yDouble,2);
         }
-        return Math.sqrt(fitness);
+        return Math.sqrt(fitness)/yData.size();
     }
 
 }

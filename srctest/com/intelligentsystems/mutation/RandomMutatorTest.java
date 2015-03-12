@@ -1,6 +1,6 @@
-package com.gubbins.mutation;
+package com.intelligentsystems.mutation;
 
-import com.gubbins.Function;
+import com.intelligentsystems.Function;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;

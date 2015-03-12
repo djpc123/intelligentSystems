@@ -1,25 +1,18 @@
-package com.gubbins;
+package com.intelligentsystems;
 
 import com.xeiam.xchart.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class GubChart {
+public class Chart {
 
-    private Chart chart;
-    private XChartPanel xChart;
+    private com.xeiam.xchart.Chart chart;
     private ArrayList<String> seriesNames;
 
-    public GubChart(String chartTitle, String xAxisLabel, String yAxisLabel) {
-        seriesNames = new ArrayList<String>();
+    public Chart(String chartTitle, String xAxisLabel, String yAxisLabel) {
+        seriesNames = new ArrayList<>();
         chart = new ChartBuilder().chartType(StyleManager.ChartType.Line).width(800).height(600).title(chartTitle).xAxisTitle(xAxisLabel).yAxisTitle(yAxisLabel).build();
-//        xChart = new XChartPanel(chart);
-//        JFrame f = new JFrame();
-//        f.setLayout(new BorderLayout());
-//        f.add(xChart, BorderLayout.CENTER);
-//        f.pack();
-//        f.setVisible(true);
     }
 
     public void setLog() {
@@ -35,14 +28,8 @@ public class GubChart {
     }
 
     public void addSeries(String seriesName, ArrayList<? extends Number> xData, ArrayList<? extends Number> yData) {
-        if(seriesNames.contains(seriesName)) {
-            //already added, update instead
-            xChart.updateSeries(seriesName, xData, yData).setMarker(SeriesMarker.NONE);
-        }
-        else {
-            chart.addSeries(seriesName, xData, yData).setMarker(SeriesMarker.NONE);
-            seriesNames.add(seriesName);
-        }
+        chart.addSeries(seriesName, xData, yData).setMarker(SeriesMarker.NONE);
+        seriesNames.add(seriesName);
     }
 
     public void addSeries(String title,String seriesName, ArrayList<? extends Number> xData, ArrayList<? extends Number> yData) {

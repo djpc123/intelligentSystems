@@ -1,6 +1,6 @@
-package com.gubbins.crossover;
+package com.intelligentsystems.crossover;
 
-import com.gubbins.Function;
+import com.intelligentsystems.Function;
 
 import java.util.ArrayList;
 

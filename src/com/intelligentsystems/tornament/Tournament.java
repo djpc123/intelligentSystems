@@ -1,7 +1,7 @@
-package com.gubbins.tornament;
+package com.intelligentsystems.tornament;
 
-import com.gubbins.Function;
-import com.gubbins.elitism.Elitism;
+import com.intelligentsystems.Function;
+import com.intelligentsystems.elitism.Elitism;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,7 +10,7 @@ import java.util.Random;
 public class Tournament {
 
     private Random randomSelect = new Random();
-    private static int TOURNAMENT_SIZE = 50;
+    private static int TOURNAMENT_SIZE = 100;
 
     public Function runTournament(ArrayList<Function> population) {
         ArrayList<Function> tournament = new ArrayList<>();

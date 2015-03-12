@@ -1,4 +1,4 @@
-package com.gubbins;
+package com.intelligentsystems;
 
 import java.io.*;
 import java.util.ArrayList;

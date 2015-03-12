@@ -1,6 +1,6 @@
-package com.gubbins;
+package com.intelligentsystems;
 
-import com.gubbins.fitness.Fitness;
+import com.intelligentsystems.fitness.Fitness;
 
 import java.util.ArrayList;
 import java.util.Iterator;

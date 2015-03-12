@@ -1,6 +1,6 @@
-package com.gubbins.elitism;
+package com.intelligentsystems.elitism;
 
-import com.gubbins.Function;
+import com.intelligentsystems.Function;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -10,9 +10,8 @@ public class Elitism {
 
     public static ArrayList<Function> selectElite(final int numberOfElite, final ArrayList<Function> population) {
         if(numberOfElite > population.size()) throw new IllegalArgumentException("Number of elite required can not be greater than given population size");
-        ArrayList<Function> elite = new ArrayList<>(); //may be dangerous
+        ArrayList<Function> elite = new ArrayList<>();
 
-        //Sort population with lowest fitness at start
         population.sort(new Comparator<Function>() {
             @Override
             public int compare(Function o1, Function o2) {
