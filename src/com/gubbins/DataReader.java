@@ -1,8 +1,8 @@
 package com.gubbins;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class DataReader {
@@ -14,7 +14,8 @@ public class DataReader {
     private ArrayList<Double> y = new ArrayList<>();
 
     private DataReader() {
-        try (BufferedReader reader = new BufferedReader(new FileReader("data.csv"))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(Class.class.getResourceAsStream("/data.csv")))) {
+//        try (BufferedReader reader = new BufferedReader(new FileReader("data.csv"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] split = line.split(",");

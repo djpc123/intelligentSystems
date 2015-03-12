@@ -8,10 +8,10 @@ public class Main {
         ArrayList<Double> xData = DataReader.getX();
         ArrayList<Double> yData = DataReader.getY();
 
-        GubChart gub = new GubChart("Title", "x", "f(x)");
-        gub.addSeries("f(x)", xData, yData);
+//        GubChart gub = new GubChart("Title", "x", "f(x)");
+//        gub.addSeries("f(x)", xData, yData);
 
-        new GeneticAlgorithm(gub).run();
+        new GeneticAlgorithm(null).run();
     }
 
 }

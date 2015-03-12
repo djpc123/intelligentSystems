@@ -12,16 +12,16 @@ import java.util.concurrent.*;
 
 public class GeneticAlgorithm {
 
-    private final ExecutorService executor = Executors.newFixedThreadPool(8);
+    private final ExecutorService executor = Executors.newFixedThreadPool(40);
     private Random randomFunction = new Random();
     private Mutator mutator = new RandomMutator();
     private Crossover crossover = new SingleSplitCrossover();
     private Tournament tournament = new Tournament();
     private ArrayList<Function> initialPopulation = new ArrayList<>();
     private GubChart chart;
-    private int populationSize = 10000;
-    private int eliteNumber = (populationSize/100)*5;
-    private int randomNumber = (populationSize/100)*5;
+    private int populationSize = 50000;
+    private int eliteNumber = (populationSize/100)*1;
+    private int randomNumber = (populationSize/100)*0;
 
 
     public GeneticAlgorithm(GubChart gub) {
@@ -29,9 +29,13 @@ public class GeneticAlgorithm {
     }
 
     public void run() {
-        generateInitialPopulation(populationSize*2);
+        generateInitialPopulation(populationSize);
+        ArrayList<Double> bestFitness = new ArrayList<>();
+        ArrayList<Double> worstFitness = new ArrayList<>();
+        ArrayList<Double> averageFitness = new ArrayList<>();
+        ArrayList<Integer> time = new ArrayList<>();
 
-        for(int j=0; j<1000000; j++) {
+        for(int j=0; j<100; j++) {
             List<Function> currentPopulation = Collections.synchronizedList(new ArrayList<>());
             List<Future<?>> tasks = new ArrayList<>();
             currentPopulation.addAll(Elitism.selectElite(eliteNumber, initialPopulation));
@@ -77,8 +81,34 @@ public class GeneticAlgorithm {
 
             Function best = Elitism.selectElite(1, initialPopulation).get(0);
             System.out.println(j + " " + best.getFitness());
-            chart.addSeries(best.toString(), "best",DataReader.getX(), best.calculate(DataReader.getX()));
+//            chart.addSeries(best.toString(), "best",DataReader.getX(), best.calculate(DataReader.getX()));
+
+            bestFitness.add(best.getFitness());
+            Function worst = Elitism.selectElite(populationSize, initialPopulation).get(populationSize-1);
+            worstFitness.add(worst.getFitness());
+            double averageFit = 0;
+            Iterator<Function> it = initialPopulation.iterator();
+            while(it.hasNext()) {
+                averageFit += it.next().getFitness();
+            }
+            averageFit /= populationSize;
+            averageFitness.add(averageFit);
+            time.add(j);
+            if(best.getFitness() == 0) break;
         }
+
+        GubChart c = new GubChart("Fitness", "Time", "Fitness Value");
+        c.setLog();
+        c.addSeries("Average", time, averageFitness);
+        c.addSeries("Worst", time, worstFitness);
+        c.addSeries("Best", time, bestFitness);
+        c.save("fitness");
+
+        Function best = Elitism.selectElite(1, initialPopulation).get(0);
+        GubChart bestC = new GubChart("Best", "x", "f(x)");
+        bestC.addSeries("f(x)", DataReader.getX(), DataReader.getY());
+        bestC.addSeries("Best", DataReader.getX(), best.calculate(DataReader.getX()));
+        bestC.save(best.toString());
 
     }
 
@@ -92,7 +122,7 @@ public class GeneticAlgorithm {
     }
 
     private double generateVariable() {
-        return randomFunction.nextInt(100000) * randomFunction.nextGaussian();
+        return randomFunction.nextInt(1000) * randomFunction.nextGaussian();
     }
 
     private void generateInitialPopulation(int populationSize) {

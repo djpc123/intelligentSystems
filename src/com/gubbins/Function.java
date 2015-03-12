@@ -37,31 +37,31 @@ public class Function {
             if (b != 1) {
                 build.append(b);
             }
-            build.append("x + ");
+            build.append("x");
         }
         if(c != 0) {
             if (c != 1) {
                 build.append(c);
             }
-            build.append("x^2 + ");
+            build.append(" + x^2");
         }
         if(d != 0) {
             if (d != 1) {
                 build.append(d);
             }
-            build.append("x^3 + ");
+            build.append(" + x^3");
         }
         if(e != 0) {
             if (e != 1) {
                 build.append(e);
             }
-            build.append("x^4 + ");
+            build.append(" + x^4");
         }
         if(f != 0) {
             if (f != 1) {
                 build.append(f);
             }
-            build.append("x^5");
+            build.append(" + x^5");
         }
 
         return build.toString();
